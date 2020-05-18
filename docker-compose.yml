@@ -6,11 +6,26 @@ services:
     container_name: 'web-monitor_chrome'
     ports:
       - '3000:3000'
+
   app:
     image: 'node:alpine'
     container_name: 'web-monitor'
+    env_file: '.env'
     environment:
       BROWSER_HOST: 'chrome'
     volumes:
+      # Project source files
       - './src:/home/node/src'
-    command: 'npm start'
+      - './types:/home/node/types'
+      - './config.toml:/home/node/config.toml'
+      - './package-lock.json:/home/node/package-lock.json'
+      - './package.json:/home/node/package.json'
+      - './run.sh:/home/node/run.sh'
+      - './run-docker.sh:/home/node/run-docker.sh'
+      - './tsconfig.json:/home/node/tsconfig.json'
+      # Snapshots
+      - './${SNAPSHOT_PATH:-./snapshots}:/home/node/snapshots'
+      # Custom crontab configuration
+      - './crontab.properties:/var/spool/cron/crontabs/root'
+    working_dir: /home/node/
+    entrypoint: ./run-docker.sh

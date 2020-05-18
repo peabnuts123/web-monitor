@@ -2,6 +2,7 @@ import { promises as fs, existsSync } from 'fs';
 
 import Puppeteer, { Page, Browser } from 'puppeteer-core';
 import toDiffableHtml from 'diffable-html';
+import { argv } from 'yargs';
 
 import loadConfig from './load-config';
 import { Config, SiteConfig } from './config';
@@ -13,8 +14,14 @@ import updateSnapshots from './update-snapshots';
 
 
 async function main(): Promise<void> {
+  Logger.log("Process starting up!");
+
+  // Parse command-line arguments
+  const frequencyFilter: string | undefined = argv._[0];
+
   // Read from Config file
-  const config: Config = await loadConfig();
+  const config: Config = await loadConfig(frequencyFilter);
+
   // Connect to browser instance
   const browser: Browser = await Puppeteer.connect({ browserWSEndpoint: `ws://${process.env['BROWSER_HOST']}:3000` });
   // "Browser tab"

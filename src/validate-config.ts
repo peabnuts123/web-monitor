@@ -1,6 +1,34 @@
 import { Config, SiteConfig, CONFIG_FILE_NAME } from "./config";
 
 /**
+ * List of all valid frequency values
+ */
+export const ALL_VALID_FREQUENCIES = [
+  '1min',
+  '5min',
+  '10min',
+  '15min',
+  '20min',
+  '30min',
+  '1hour',
+  '2hour',
+  '3hour',
+  '4hour',
+  '6hour',
+  '12hour',
+  '1day',
+];
+
+/**
+ * Test whether a given frequency string is within the set of valid frequencies.
+ *
+ * @param frequency Frequency string to test
+ */
+export function isValidFrequency(frequency: string) {
+  return ALL_VALID_FREQUENCIES.includes(frequency);
+}
+
+/**
  * Validate a given config object to ensure it is fit for use
  */
 export default function validateConfig(config: Config) {
@@ -31,6 +59,13 @@ function validateSite(siteConfig: SiteConfig, index: number) {
     throwInvalidSiteConfigError("`selector` is a required field", index);
   } else if (typeof siteConfig.selector !== 'string') {
     throwInvalidSiteConfigError("`selector` must be a string", index);
+    // Frequency
+  } else if (!siteConfig.frequency) {
+    throw throwInvalidSiteConfigError("`frequency` is a required field", index);
+  } else if (typeof siteConfig.frequency !== 'string') {
+    throw throwInvalidSiteConfigError("`frequency` must be a string", index);
+  } else if (!isValidFrequency(siteConfig.frequency)) {
+    throw throwInvalidSiteConfigError("`frequency` must be one of: " + ALL_VALID_FREQUENCIES.join(', '), index);
   }
 }
 

@@ -2,8 +2,12 @@
  * Config data per-site
  */
 export interface SiteConfig {
+  /** URL to monitor */
   url: string;
+  /** Selector to specify which part of the page to monitor */
   selector: string;
+  /** How often this URL should be monitored */
+  frequency: string;
 }
 
 /**
