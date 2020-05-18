@@ -1,0 +1,16 @@
+version: '3.7'
+
+services:
+  chrome:
+    image: 'browserless/chrome:latest'
+    container_name: 'web-monitor_chrome'
+    ports:
+      - '3000:3000'
+  app:
+    image: 'node:alpine'
+    container_name: 'web-monitor'
+    environment:
+      BROWSER_HOST: 'chrome'
+    volumes:
+      - './src:/home/node/src'
+    command: 'npm start'

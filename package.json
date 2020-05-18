@@ -1,0 +1,32 @@
+{
+  "name": "web-monitor",
+  "version": "0.1.0",
+  "description": "Monitor whether parts of the internet have changed",
+  "main": "src/index.ts",
+  "private": true,
+  "scripts": {
+    "start": "ts-node --project ./tsconfig.json --files src/index.ts",
+    "lint": "eslint --no-error-on-unmatched-pattern src/**/*.{ts,js}",
+    "type-check": "tsc"
+  },
+  "author": "peabnuts123",
+  "license": "GPLv3",
+  "dependencies": {
+    "@iarna/toml": "^3.0.0",
+    "@types/email-templates": "^7.0.1",
+    "@types/nodemailer": "^6.4.0",
+    "@types/puppeteer-core": "^2.0.0",
+    "@typescript-eslint/eslint-plugin": "^2.33.0",
+    "@typescript-eslint/parser": "^2.33.0",
+    "aws-sdk": "^2.678.0",
+    "diff2html": "^3.1.7",
+    "diffable-html": "^4.0.0",
+    "email-templates": "^7.0.5",
+    "eslint": "^7.0.0",
+    "handlebars": "^4.7.6",
+    "nodemailer": "^6.4.6",
+    "puppeteer-core": "^3.0.4",
+    "ts-node": "^8.10.1",
+    "typescript": "^3.9.2"
+  }
+}
