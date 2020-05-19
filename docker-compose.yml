@@ -14,6 +14,8 @@ services:
     environment:
       BROWSER_HOST: 'chrome'
     volumes:
+      # Timezone
+      - '${LOCAL_TIME_MOUNT:-/etc/localtime}:/etc/localtime:ro'
       # Project source files
       - './src:/home/node/src'
       - './types:/home/node/types'
