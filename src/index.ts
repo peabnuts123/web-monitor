@@ -100,4 +100,11 @@ async function main(): Promise<void> {
   }
 }
 
-main();
+// Catch any process-level errors
+main().catch((e) => {
+  Logger.logError(e);
+
+  if (process.exitCode === undefined) {
+    process.exitCode = 1;
+  }
+});
