@@ -1,9 +1,0 @@
-[[sites]]
-url = 'https://www.alphero.com/work'
-selector = '.CaseStudies'
-frequency = '15min'
-
-[[sites]]
-url = 'https://www.stuff.co.nz'
-selector = '.top-left-area section.defcon>.display-asset.main_article'
-frequency = '15min'

@@ -1,0 +1,12 @@
+# Add site configurations to `sites` array
+# Check stuff.co.nz's featured article once per hour
+[[sites]]
+url = 'https://www.stuff.co.nz'
+selector = '.top-left-area section.defcon>.display-asset.main_article'
+frequency = '1hour'
+
+# Monitor The Co-operative Bank's website for new deployments
+[[sites]]
+url = 'https://www.co-operativebank.co.nz/?displayVersions=1'
+selector = '.Footer-meta'
+frequency = '1day'
