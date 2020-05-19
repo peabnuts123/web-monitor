@@ -22,12 +22,19 @@ async function main(): Promise<void> {
   // Read from Config file
   const config: Config = await loadConfig(frequencyFilter);
 
+  const numSitesTotal = config.sites.length;
+
+  // Check there are sites to process
+  if (numSitesTotal === 0) {
+    Logger.log("No sites to process. Exiting");
+    return;
+  }
+
   // Connect to browser instance
   const browser: Browser = await Puppeteer.connect({ browserWSEndpoint: `ws://${process.env['BROWSER_HOST']}:3000` });
   // "Browser tab"
   let page: Page;
 
-  const numSitesTotal = config.sites.length;
 
   try {
     page = await browser.newPage();
@@ -65,7 +72,7 @@ async function main(): Promise<void> {
     await browser.close();
 
     // Clean up snapshots on-disk
-    await updateSnapshots();
+    await updateSnapshots(config.sites);
   }
 
   Logger.log("Finished processing.");
