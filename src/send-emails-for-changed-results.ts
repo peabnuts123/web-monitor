@@ -101,11 +101,11 @@ export default async function sendEmailsForChangedResults(allResults: Result[]):
           },
         });
 
-      Logger.log(`[${i + 1} of ${allResults.length}] Successfully sent change notice email for site '${result.site.url}'`);
+      Logger.log(`[${i + 1} of ${changedResults.length}] Successfully sent change notice email for site '${result.site.url}'`);
     } catch (e) {
       // Sending email failed. We could try again but for now
       //  let's just log an error to the console
-      Logger.logError(`[${i + 1} of ${allResults.length}] Failed to send email for site '${result.site.url}'.`, e);
+      Logger.logError(`[${i + 1} of ${changedResults.length}] Failed to send email for site '${result.site.url}'.`, e);
     }
 
     // Wait before processing another email
