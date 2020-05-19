@@ -9,7 +9,9 @@ import Logger from './util/Logger';
  */
 export default async function loadConfig(frequencyFilter: string | undefined): Promise<Config> {
   // Validate frequency
-  if (frequencyFilter !== undefined && !isValidFrequency(frequencyFilter)) {
+  if (frequencyFilter === undefined) {
+    throw new Error("Cannot run - no frequency filter supplied. Usage: `npm start -- 10min`");
+  } else if (!isValidFrequency(frequencyFilter)) {
     throw new Error(`Cannot run - Supplied frequency filter '${frequencyFilter}' is not a valid option. Must be one of ${ALL_VALID_FREQUENCIES.join(', ')}`);
   }
 
@@ -25,11 +27,7 @@ export default async function loadConfig(frequencyFilter: string | undefined): P
   validateConfig(config);
 
   // Filter config (if supplied)
-  if (frequencyFilter !== undefined) {
-    config.sites = config.sites.filter((site: SiteConfig) => site.frequency === frequencyFilter);
-  } else {
-    Logger.logWarning("No filter supplied - monitoring ALL sites");
-  }
+  config.sites = config.sites.filter((site: SiteConfig) => site.frequency === frequencyFilter);
 
   return config;
 }
