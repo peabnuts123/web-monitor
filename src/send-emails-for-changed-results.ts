@@ -17,7 +17,7 @@ interface TemplateData {
  * Whether to preview the email or actually send it.
  * Useful for debugging email contents without spamming.
  */
-const PREVIEW_EMAIL = true;
+const PREVIEW_EMAIL = false;
 /**
  * Time between email processing - to avoid looking too dodgy
  */
