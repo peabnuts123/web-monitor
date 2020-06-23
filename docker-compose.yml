@@ -4,12 +4,14 @@ services:
   chrome:
     image: 'browserless/chrome:latest'
     container_name: 'web-monitor_chrome'
+    restart: 'unless-stopped'
     ports:
       - '3000:3000'
 
   app:
     image: 'node:alpine'
     container_name: 'web-monitor'
+    restart: 'unless-stopped'
     env_file: '.env'
     environment:
       BROWSER_HOST: 'chrome'
