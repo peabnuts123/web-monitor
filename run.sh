@@ -4,4 +4,4 @@
 cd /home/node || exit 1;
 
 # Run command and pass command line arguments
-npm start -- "$@" >> process.log 2>&1;
+NODE_ENV=production npm start >> process.log 2>&1;

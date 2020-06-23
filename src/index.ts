@@ -2,25 +2,31 @@ import { promises as fs, existsSync } from 'fs';
 
 import Puppeteer, { Page, Browser } from 'puppeteer-core';
 import toDiffableHtml from 'diffable-html';
-import { argv } from 'yargs';
 
 import loadConfig from './load-config';
 import { Config, SiteConfig } from './config';
-import Logger from './util/Logger';
+import Logger, { LogLevel } from './util/Logger';
 import { newSnapshotFilePath, SNAPSHOT_FOLDER } from './util/snapshot';
 import compareSnapshots from './compare-snapshots';
 import sendEmailsForChangedResults from './send-emails-for-changed-results';
 import updateSnapshots from './update-snapshots';
+import loadSnapshotManifest from './snapshot-manifest';
 
 
 async function main(): Promise<void> {
   Logger.log("Process starting up!");
 
-  // Parse command-line arguments
-  const frequencyFilter: string | undefined = argv._[0];
+  // Set debug log level in development
+  if (process.env['NODE_ENV'] !== 'production') {
+    Logger.setLogLevel(LogLevel.debug);
+  }
+
+  // Load snapshot manifest from file
+  const snapshotManifest = await loadSnapshotManifest();
 
   // Read from Config file
-  const config: Config = await loadConfig(frequencyFilter);
+  const config: Config = await loadConfig(snapshotManifest);
+
 
   const numSitesTotal = config.sites.length;
 
@@ -72,7 +78,7 @@ async function main(): Promise<void> {
     await browser.close();
 
     // Clean up snapshots on-disk
-    await updateSnapshots(config.sites);
+    await updateSnapshots(config.sites, snapshotManifest);
   }
 
   Logger.log("Finished processing.");
@@ -85,7 +91,7 @@ async function main(): Promise<void> {
    */
   async function getPageHtml(url: string, selector: string) {
     await page.goto(url, {
-      waitUntil: "networkidle2",
+      waitUntil: "networkidle0",
     });
     return page.evaluate((selector: string) => {
       /* eslint-env browser */

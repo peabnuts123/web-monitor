@@ -1,23 +1,24 @@
 import { Config, SiteConfig, CONFIG_FILE_NAME } from "./config";
 
 /**
- * List of all valid frequency values
+ * A list of all valid frequencies and their corresponding
+ * duration in milliseconds
  */
-export const ALL_VALID_FREQUENCIES = [
-  '1min',
-  '5min',
-  '10min',
-  '15min',
-  '20min',
-  '30min',
-  '1hour',
-  '2hour',
-  '3hour',
-  '4hour',
-  '6hour',
-  '12hour',
-  '1day',
-];
+export const AllValidFrequencies = {
+  '1min': 60 * 1000,
+  '5min': 5 * 60 * 1000,
+  '10min': 10 * 60 * 1000,
+  '15min': 15 * 60 * 1000,
+  '20min': 20 * 60 * 1000,
+  '30min': 30 * 60 * 1000,
+  '1hour': 60 * 60 * 1000,
+  '2hour': 2 * 60 * 60 * 1000,
+  '3hour': 3 * 60 * 60 * 1000,
+  '4hour': 4 * 60 * 60 * 1000,
+  '6hour': 6 * 60 * 60 * 1000,
+  '12hour': 12 * 60 * 60 * 1000,
+  '1day': 24 * 60 * 60 * 1000,
+};
 
 /**
  * Test whether a given frequency string is within the set of valid frequencies.
@@ -25,7 +26,7 @@ export const ALL_VALID_FREQUENCIES = [
  * @param frequency Frequency string to test
  */
 export function isValidFrequency(frequency: string) {
-  return ALL_VALID_FREQUENCIES.includes(frequency);
+  return frequency in AllValidFrequencies;
 }
 
 /**
@@ -65,7 +66,7 @@ function validateSite(siteConfig: SiteConfig, index: number) {
   } else if (typeof siteConfig.frequency !== 'string') {
     throw throwInvalidSiteConfigError("`frequency` must be a string", index);
   } else if (!isValidFrequency(siteConfig.frequency)) {
-    throw throwInvalidSiteConfigError("`frequency` must be one of: " + ALL_VALID_FREQUENCIES.join(', '), index);
+    throw throwInvalidSiteConfigError("`frequency` must be one of: " + Object.keys(AllValidFrequencies).join(', '), index);
   }
 }
 

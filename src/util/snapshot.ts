@@ -9,6 +9,12 @@ export const SNAPSHOT_NEW_SUFFIX = '.latest';
 /** File name suffix for "old" snapshots */
 export const SNAPSHOT_OLD_SUFFIX = '.old';
 
+/** File name for file in which meta data is stored */
+export const SNAPSHOT_FILE_NAME = 'snapshot.manifest';
+
+/** Full path to snapshot manifest file */
+export const SNAPSHOT_MANIFEST_PATH = path.join(SNAPSHOT_FOLDER, SNAPSHOT_FILE_NAME);
+
 /**
  * Get the name of a snapshot for a given url
  * @param url Url for which to generate a file name
