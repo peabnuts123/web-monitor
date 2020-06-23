@@ -14,7 +14,7 @@ services:
     restart: 'unless-stopped'
     env_file: '.env'
     environment:
-      BROWSER_HOST: 'chrome'
+      BROWSER_HOST: '${BROWSER_HOST:-chrome}'
     volumes:
       # Timezone
       - '${LOCAL_TIME_MOUNT:-/etc/localtime}:/etc/localtime:ro'
