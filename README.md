@@ -23,4 +23,9 @@ frequency = '1day'  # Every day (at midnight)
 ## Backlog / TODO
   - Documentation
   - Add a test project
-  - Add tsconfig-paths
+  - Add support for selector arrays
+  - Add support for shadow roots / web components
+  - Add support for a chain of selectors?
+  - Limit docker log size
+  - Add support for some kind of selector blacklist / remover for problematic elements
+  - Add tsconfig-paths?
