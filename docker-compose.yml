@@ -12,6 +12,7 @@ services:
     image: 'node:alpine'
     container_name: 'web-monitor'
     restart: 'unless-stopped'
+    user: '1000:1000'
     env_file: '.env'
     environment:
       BROWSER_HOST: '${BROWSER_HOST:-chrome}'
