@@ -109,7 +109,7 @@ async function main(): Promise<void> {
     if (pageHtml !== null) {
       return pageHtml;
     } else {
-      Logger.logWarning("No element found matching selector:", selector);
+      Logger.logWarning("WARNING: No element found matching selector:", selector);
       return `[No element found matching selector]`;
     }
   }
