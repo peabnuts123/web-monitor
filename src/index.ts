@@ -94,7 +94,7 @@ async function main(): Promise<void> {
     await page.goto(url, {
       waitUntil: "networkidle0",
     });
-    const pageHtml: string | null = page.evaluate((selector: string) => {
+    const pageHtml: string | null = await page.evaluate((selector: string) => {
       /* eslint-env browser */
       const element = document.querySelector(selector);
       if (element) {
