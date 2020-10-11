@@ -94,17 +94,24 @@ async function main(): Promise<void> {
     await page.goto(url, {
       waitUntil: "networkidle0",
     });
-    return page.evaluate((selector: string) => {
+    const pageHtml: string | null = page.evaluate((selector: string) => {
       /* eslint-env browser */
       const element = document.querySelector(selector);
       if (element) {
         return element.outerHTML;
       } else {
-        Logger.logWarning("No element found matching selector:", selector);
-        return `[No element found matching selector]`;
+        return null;
       }
       /* eslint-env node */
     }, selector);
+
+
+    if (pageHtml !== null) {
+      return pageHtml;
+    } else {
+      Logger.logWarning("No element found matching selector:", selector);
+      return `[No element found matching selector]`;
+    }
   }
 }
 
