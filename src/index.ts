@@ -73,7 +73,8 @@ async function main(): Promise<void> {
 
     // Send emails based on snapshot results
     await sendEmailsForChangedResults(results);
-
+  } catch (e) {
+    Logger.logError("Unhandled error occurred while processing:", e);
   } finally {
     await browser.close();
 
@@ -99,7 +100,8 @@ async function main(): Promise<void> {
       if (element) {
         return element.outerHTML;
       } else {
-        throw new Error(`No element found for selector: ${selector}`);
+        Logger.logWarning("No element found matching selector:", selector);
+        return `[No element found matching selector]`;
       }
       /* eslint-env node */
     }, selector);
